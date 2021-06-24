@@ -29,12 +29,12 @@ comp_dat = comparative.data(tree, data, names="Scientific_Name")
 #(when you allow the model to estimate lambda; fixed = FALSE)
 #this is using ape
 
-pgls1 = gls(scale(BodyWeight)~scale(Lymphocytes), data=data, correlation = corPagel(value=0.7, tree, form=~Scientific_Name, fixed=FALSE), method="REML")
+pgls1 = gls(scale(BodyWeight)~scale(Lymphocytes), data=data, correlation = corPagel(value=0.7, tree, form=~Scientific_Name, fixed=FALSE), method="ML")
 summary(pgls1) #lambda = 0.913
 
-pgls2 = gls(scale(Lymphocytes)~scale(BodyWeight), data=data, correlation = corPagel(value=0.7, tree, form=~Scientific_Name, fixed=FALSE), method="REML")
+pgls2 = gls(scale(Lymphocytes)~scale(BodyWeight), data=data, correlation = corPagel(value=0.7, tree, form=~Scientific_Name, fixed=FALSE), method="ML")
 summary(pgls2) #using maximum likelihood, I get that lambda=-3.35. I THINK negative lambda means closely related species are much more different than expected by brownian motion 
-#using method="REML" gives lambda around 0.6, I think this prevents lambda from going below zero? 
+#using method="REML" gives lambda around 0.6, I think this is because this method prevents lambda from going below zero? 
 
 #this is just a fancier way of running an ord least sq reg; this is the same as above. Note: value=0, fixed=TRUE
 ols1 = gls(scale(BodyWeight)~scale(Lymphocytes), data=data, correlation = corPagel(value=0, tree, form=~Scientific_Name, fixed=TRUE))
