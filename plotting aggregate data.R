@@ -5,6 +5,7 @@ library(ggtree)
 library(ape)
 library(phytools)
 library(nlme)
+library(caper)
 
 ageslope2 = read.csv("findataabslopeallwbctypes.csv", header=T)
 ageslope=ageslope2[,2:8]
@@ -82,4 +83,21 @@ p2 + theme_tree2(panel.spacing = unit(5, "lines"))
 p2 = facet_plot(p, panel='Total WBC sexual dimorphism', data=dim_data, geom=geom_point, 
                 aes(x=ALLWBCMaledivAverage_Ratio, color=Mating_System), size=3) 
 p2 + theme_tree2(panel.spacing = unit(5, "lines"))
+
+
+#testes mass
+#categorized mating system
+#seasonality
+
+##### replicate nunn study
+#get papers for leila & read one together?
+#analyses with wbc types - absolute counts
+#dimorphism in wbc types - leila look at literature
+#correlations lymphocytes neutrophils
+#age??? 
+
+pgls()
+
+
+
 
