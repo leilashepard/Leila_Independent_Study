@@ -1,0 +1,31 @@
+#NEXUS
+[created by the 10kTree Website - http://10kTrees.fas.harvard.edu]
+BEGIN TREES;
+translate
+1 Cheirogaleus_medius,
+2 Daubentonia_madagascariensis,
+3 Eulemur_coronatus,
+4 Eulemur_fulvus_albifrons,
+5 Eulemur_fulvus_collaris,
+6 Eulemur_fulvus_fulvus,
+7 Eulemur_fulvus_rufus,
+8 Eulemur_fulvus_sanfordi,
+9 Eulemur_macaco_flavifrons,
+10 Eulemur_macaco_macaco,
+11 Eulemur_mongoz,
+12 Eulemur_rubriventer,
+13 Hapalemur_griseus,
+14 Lemur_catta,
+15 Microcebus_murinus,
+16 Mirza_coquereli,
+17 Propithecus_coquereli,
+18 Propithecus_diadema,
+19 Varecia_rubra,
+20 Varecia_variegata_variegata,
+21 Loris_tardigradus,
+22 Nycticebus_coucang,
+23 Nycticebus_pygmaeus,
+24 Galago_moholi;
+tree consensus_24species = ((((((15:14.271122,16:14.271123):8.292266,1:22.563389):8.382516,(17:6.555554,18:6.555554):24.390351):2.318811,(((3:5.822228,((((((4:0.264109,8:0.264109):0.498087,6:0.762196):1.168775,5:1.930972):1.861205,12:3.792177):0.361527,(7:2.690059,11:2.690059):1.463646):1.041696,(9:2.011579,10:2.011579):3.183822):0.626828):9.197368,(13:9.280518,14:9.280517):5.739079):5.523206,(19:1.270526,20:1.270526):19.272276):12.721914):17.859349,2:51.124065):11.612487,((21:24.057527,(22:8.506247,23:8.506246):15.551281):13.942473,24:38.000001):24.736553);
+END;<br />
+<b>Warning</b>:  session_write_close() expects exactly 0 parameters, 1 given in <b>/var/www/10ktrees.nunn-lab.org/sendTreesToUser.php</b> on line <b>98</b><br />
