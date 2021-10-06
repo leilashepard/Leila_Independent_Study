@@ -33,27 +33,59 @@ leuk_breed = leuks_all %>% left_join(breed)
 leuk_breed$Species[leuk_breed$Common_Name=="golden-crowned sifaka"]="Propithecus_diadema"
 leuk_breed$R_Pattern_Breeding[leuk_breed$Common_Name=="golden-crowned sifaka"]="S"
 
+
+#breeding seasonality data from Heldstab et al. paper
+held_data = read.csv("Heldstab et al. data.csv", header=T)
+
+held_data$Species=gsub(" ","_",held_data$Species)
+held_data$Species=gsub("\\*","",held_data$Species)
+
+leuk_breed$Species[!leuk_breed$Species %in% held_data$Species]
+
+str(held_data)
+
+leuk_breed_2 = leuk_breed %>% left_join(held_data[c(1,14,16)])
+
 #mating system data
 matingsys = read.csv("Kling & Wright Mating System 2019.csv", header=T)
-leuk_breed_sys = leuk_breed %>% left_join(matingsys)
+leuk_breed_sys = leuk_breed_2 %>% left_join(matingsys)
 
 
 # other season data and mating system data ... 
 leila_data = read.csv("Leila mating season system classification.csv", header=T)
 leuk_breed_sys_leila = leuk_breed_sys %>% left_join(leila_data, by=c("Species" = "Scientific_Name_DLC"))
+leuk_breed_sys_leila$Species
 
+plot(Seasonality.natural.habitat~MatingSeasDur, data=leuk_breed_sys_leila)
+comp_mod = lm(Seasonality.natural.habitat~MatingSeasDur, data=leuk_breed_sys_leila)
+summary(comp_mod) #almost significant (p=0.06) positive correlation between Leila's classification 
+#of mating season and Heldstab/van Schaik's, for the 9 overlapping species in the two datasets
+nobs(comp_mod)
+
+leuk_breed_sys_leila$Seasonality.natural.habitat
+
+
+luepold = read.csv("Luepold_etal_Data.csv", header=T)
+luepold$Species = gsub(" ", "_", luepold$Species)
+
+leuk_breed_sys_leila$Species[leuk_breed_sys_leila$Species %in% luepold$Species]
 
 #sexual dimorphism data from kappeler
-dimorph = read.csv("Kappeler 1993_sexual dimorphism only.csv", header=T)
-dimorph$Species = gsub(pattern=" ", replacement="_", dimorph$Species)
+#dimorph = read.csv("Kappeler 1993_sexual dimorphism only.csv", header=T)
+#dimorph$Species = gsub(pattern=" ", replacement="_", dimorph$Species)
 
 #going to use data from Propithecus verreauxi for Propithecus coquereli because they
 #were considered the same species when the Kappeler paper was published
-dimorph$Species[which(dimorph$Species == "Propithecus_verreauxi")] = "Propithecus_coquereli"
+#dimorph$Species[which(dimorph$Species == "Propithecus_verreauxi")] = "Propithecus_coquereli"
 #wbcdata2 = read.csv("sexual dimorphism for all species and all wbc types.csv", header=T)
 
-leuk_breed_sys_leila_dim = leuk_breed_sys_leila %>% left_join(dimorph, by="Species")
-leuk_breed_sys_leila_dim$Species[!leuk_breed_sys_leila_dim$Species %in% dimorph$Species]
+#leuk_breed_sys_leila_dim = leuk_breed_sys_leila %>% left_join(dimorph, by="Species")
+#leuk_breed_sys_leila_dim$Species[!leuk_breed_sys_leila_dim$Species %in% dimorph$Species]
+
+
+leuk_breed_sys_leila$Species[leuk_breed_sys_leila$Species %in% luepold$Species]
+sort(leuk_breed_sys_leila$Species[!leuk_breed_sys_leila$Species %in% luepold$Species])
+
 
 #read in parasite data
 parasites = read.csv("PSR data for lemurs.csv", header=T)

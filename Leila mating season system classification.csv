@@ -9,7 +9,7 @@ Propithecus_coquereli,Propithecus_coquereli,3,Polyandrous
 Eulemur_coronatus,Eulemur_coronatus,1.5,Polygynous
 Hapalemur_griseus_alaotrensis,Hapalemus_griseus,6,Polygynous
 Cheirogaleus_medius,Cheirogaleus_medius,1,Monogamous
-Propithecus_tattersalli,Propithecus_coquereli,2.5,Polygynous
+Propithecus_tattersalli,Propithecus_diadema,2.5,Polygynous
 Microcebus_murinus,Microcebus_murinus,1,Polygamous
 Galago_senegalensis,Galago_moholi,2,Polygynous
 Eulemur_mongoz,Eulemur_mongoz,2,Monogamous
@@ -23,4 +23,3 @@ Eulemur_fulvus_sanfordi,Eulemur_sanfordi,0.5,Polygamous
 Loris_tardigradus,Loris_tardigradus,4,Polygamous
 Nycticebus_coucang,Nycticebus_coucang,2.5,Polygamous
 Eulemur_albifrons,Eulemur_albifrons,,
-Propithecus_coquereli,Propithecus_coquereli,,
