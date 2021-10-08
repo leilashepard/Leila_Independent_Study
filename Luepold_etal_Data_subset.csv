@@ -1,0 +1,16 @@
+﻿Species,SocialMatingSystem,Monopolization,FemalesPerMaleInBreedingGroup,MalesPerBreedingGroup,SocialGroupSize,MaleBodyMass(SSDDataset).in.g,FemaleBodyMass(SSDDataset).in.g,SexualSizeDimorphism,MaleCanineHeight.in.mm,FemaleCanineHeight.in.mm,SexualCanineDimorphism,MaleBodyMass(CanineDataset).in.g,CombinedTestesMass.in.g,MaleBodyMass(TestesDataset).in.g,meanMaleBodyMass.in.g,References,Comments,DataSourceInternal
+Cheirogaleus medius,Polygynous,Yes,,1,5.5,283,282,1,3.75,3.98,0.942,280,1.12,220,261,"3, 4, 7, 8, 13, 19",,Luepold et al. 2019
+Eulemur coronatus,Multimale,No,,,8.4,1690,1620,1.043,9.43,8.48,1.112,1690,6.96,1850,1743,"3, 4, 11, 13, 21",,Luepold et al. 2019
+Eulemur fulvus,Multimale,No,1.2,3.8,9.2,2180,2250,1,11.87,10.09,1.176,2400,20.489,2130,2237,"3, 4, 8, 11, 13, 21",Testes mass from volume,Luepold et al. 2019
+Eulemur macaco,Multimale,No,,3.2,8.4,2370,2510,0.964,10.58,10.34,1.023,2400,16.65,2500,2423,"3, 4, 8, 11-12",,Luepold et al. 2019
+Eulemur mongoz,Monogamous,No,1,1,3.5,1630,1610,1.012,9.63,8.06,1.195,1680,12.25,1660,1657,"3, 4, 8, 11-12",,Luepold et al. 2019
+Eulemur rubriventer,Monogamous,No,,1,3.2,1980,1940,1.021,10.49,9.98,1.051,1980,1.76,2512,2157,"3, 4, 8, 11, 13, 21",Testes mass from volume,Luepold et al. 2019
+Hapalemur griseus,Monogamous,No,,1.3,2.6,987,903,1.119,5.94,5.91,1.005,750,2.1,1094,944,"3, 4, 8, 11, 13, 21",,Luepold et al. 2019
+Lemur catta,Multimale,No,1.1,4.5,15.3,2210,2210,1,10.86,9.16,1.186,2210,17.8,2700,2373,"3, 4, 8, 11-13",,Luepold et al. 2019
+Galago moholi,,,,,,,,,,,,,0.67,203,,Kappeler 1997 Behav Ecol,Testes mass from volume,Luepold pers. comm. 2021
+Loris tardigradus,,,,,,,,,,,,,1.92,280,,Dunham & Rudolf 2009 J Evol Biol,,Luepold pers. comm. 2021
+Microcebus murinus,,,,,,,,,,,,,2.49,80,,Dunham & Rudolf 2009 J Evol Biol,,Luepold pers. comm. 2021
+Mirza coquereli,,,,,,,,,,,,,7.19,310,,Dunham & Rudolf 2009 J Evol Biol,Testes mass from volume,Luepold pers. comm. 2021
+Nycticebus coucang,,,,,,,,,,,,,3.13,1240,,Dunham & Rudolf 2009 J Evol Biol,,Luepold pers. comm. 2021
+Nycticebus pygmaeus,,,,,,,,,,,,,4.25,450,,Dunham & Rudolf 2009 J Evol Biol,,Luepold pers. comm. 2021
+Varecia variegata,,,,,,,,,,,,,22,4110,,Dunham & Rudolf 2009 J Evol Biol,Testes mass from volume,Luepold pers. comm. 2021
