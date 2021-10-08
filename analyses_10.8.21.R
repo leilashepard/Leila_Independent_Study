@@ -465,17 +465,17 @@ pgls3 = gls(mean_value_Lymphocytes.Abs/1000 ~ MatingSeasDur + mean_value_Body.We
 summary(pgls3)
 
 
-pgls3 = gls(mean_value_Eosinophils.Abs~ MatingSeasDur + mean_value_Body.Weight, data=traits_data_matseas, 
+pgls3 = gls(mean_value_Eosinophils.Abs/1000~ MatingSeasDur + mean_value_Body.Weight, data=traits_data_matseas, 
             correlation = corPagel(0.5, tree_matseas, form=~Species, fixed=FALSE), method="REML",  
             weights=~I(1/n_ind_Eosinophils.Abs))
 summary(pgls3) 
 
-pgls3 = gls(mean_value_Basophils.Abs ~ MatingSeasDur + mean_value_Body.Weight, data=traits_data_matseas, 
+pgls3 = gls(mean_value_Basophils.Abs/1000 ~ MatingSeasDur + mean_value_Body.Weight, data=traits_data_matseas, 
             correlation = corPagel(0.5, tree_matseas, form=~Species, fixed=FALSE), method="REML",  
             weights=~I(1/n_ind_Basophils.Abs))
 summary(pgls3) 
 
-pgls3 = gls(mean_value_Monocytes.Abs~MatingSeasDur + mean_value_Body.Weight, data=traits_data_matseas, 
+pgls3 = gls(mean_value_Monocytes.Abs/1000~MatingSeasDur + mean_value_Body.Weight, data=traits_data_matseas, 
             correlation = corPagel(0.5, tree_matseas, form=~Species, fixed=FALSE), method="REML",  
             weights=~I(1/n_ind_Monocytes.Abs)) 
 summary(pgls3) # * p = 0.0448
