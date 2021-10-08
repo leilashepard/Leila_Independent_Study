@@ -26,7 +26,7 @@ summary(gmpd_data_lemursub)
 length(which(gmpd_data_lemursub$Direct==1)) #279 records
 length(which(gmpd_data_lemursub$CloseT==1)) #119 records
 
-
+length(unique(gmpd_data_lemursub$ParasiteCorrectedName))
 ##omit parasites labelled 'sp.', if there is already a named species 
 #for the same genus recorded in the same host
 

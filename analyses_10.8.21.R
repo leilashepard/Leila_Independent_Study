@@ -32,18 +32,18 @@ nameck
 #tree=tree_sub
 
 #WBC ~ body mass
-pgls_bm = gls(scale(mean_value_White.Blood.Cells)~scale(mean_value_Body.Weight), data=traits_data, 
+pgls_bm = gls(mean_value_White.Blood.Cells~mean_value_Body.Weight, data=traits_data, 
             correlation = corPagel(0.5, tree, form=~Species, fixed=FALSE), 
             method="REML", weights=~I(1/n_ind_White.Blood.Cells))
 summary(pgls_bm) # p = 0.72; lambda = 0.55
 
 #neutrophils ~ BM
-pgls_bm = gls(scale(mean_value_Neutrophil.Seg.Abs)~scale(mean_value_Body.Weight), data=traits_data, 
+pgls_bm = gls(mean_value_Neutrophil.Seg.Abs/1000~mean_value_Body.Weight, data=traits_data, 
               correlation = corPagel(0.5, tree, form=~Species, fixed=FALSE), 
               method="REML", weights=~I(1/n_ind_Neutrophil.Seg.Abs))
 summary(pgls_bm) # p = 0.009; lambda = -0.196... but lambda is negative... so I re-fit the model fixing lambda at 0.
 
-pgls_bm = gls(scale(mean_value_Neutrophil.Seg.Abs)~scale(mean_value_Body.Weight), data=traits_data, 
+pgls_bm = gls(mean_value_Neutrophil.Seg.Abs/1000~scale(mean_value_Body.Weight), data=traits_data, 
               correlation = corPagel(0, tree, form=~Species, fixed=TRUE), 
               method="REML", weights=~I(1/n_ind_Neutrophil.Seg.Abs))
 summary(pgls_bm) #p= 0.008
@@ -154,13 +154,13 @@ summary(pgls1)# *  p = 0.0002
 
 ######################
 #WBC ~ males per female
-pgls1 = gls(scale(mean_value_White.Blood.Cells)~factor(Males_per_female_CRA) + scale(mean_value_Body.Weight), data=traits_data, 
+pgls1 = gls(mean_value_White.Blood.Cells~factor(Males_per_female_CRA) + mean_value_Body.Weight, data=traits_data, 
             correlation = corPagel(0.5, tree, form=~Species, fixed=FALSE), 
             method="REML", weights=~I(1/n_ind_White.Blood.Cells))
 summary(pgls1) # p = 0.20; lambda = 0.55
 
 #Neutrophils ~ males per female
-pgls1 = gls(scale(mean_value_Neutrophil.Seg.Abs)~factor(Males_per_female_CRA) + scale(mean_value_Body.Weight), data=traits_data, 
+pgls1 = gls(mean_value_Neutrophil.Seg.Abs~factor(Males_per_female_CRA) + mean_value_Body.Weight, data=traits_data, 
             correlation = corPagel(0.5, tree, form=~Species, fixed=FALSE), 
             method="REML", weights=~I(1/n_ind_Neutrophil.Seg.Abs)) # false convergence
 
@@ -258,52 +258,52 @@ ggplot(data=traits_data_testes, aes(x=relative_testes_size_lp, y=mean_value_Whit
   xlab("Relative testes mass (residuals)") +
   ylab("Mean white blood cell count (10^3/mm^3)") + theme_bw() 
 
-pgls1 = gls(scale(mean_value_Neutrophil.Seg.Abs)~scale(relative_testes_size_lp), data=traits_data_testes, 
+pgls1 = gls(mean_value_Neutrophil.Seg.Abs~relative_testes_size_lp, data=traits_data_testes, 
             correlation = corPagel(0.5, tree_testes, form=~Species, fixed=FALSE), 
             method="REML", weights=~I(1/n_ind_Neutrophil.Seg.Abs))
-summary(pgls1) # p = 0.1
+summary(pgls1) 
 
-pgls1 = gls(scale(mean_value_Lymphocytes.Abs)~scale(relative_testes_size_lp), data=traits_data_testes, 
+pgls1 = gls(mean_value_Lymphocytes.Abs~relative_testes_size_lp, data=traits_data_testes, 
             correlation = corPagel(0.5, tree_testes, form=~Species, fixed=FALSE), 
-            method="REML", weights=~I(1/n_ind_Lymphocytes.Abs)) #lambda > 1 !
-summary(pgls1)
+            method="REML", weights=~I(1/n_ind_Lymphocytes.Abs)) 
+summary(pgls1) #lambda > 1 !
 
-pgls1 = gls(scale(mean_value_Lymphocytes.Abs)~scale(relative_testes_size_lp), data=traits_data_testes, 
+pgls1 = gls(mean_value_Lymphocytes.Abs~relative_testes_size_lp, data=traits_data_testes, 
             correlation = corPagel(1, tree_testes, form=~Species, fixed=TRUE), 
             method="REML", weights=~I(1/n_ind_Lymphocytes.Abs))
 summary(pgls1)
 
 
-pgls1 = gls(scale(mean_value_Basophils.Abs)~scale(relative_testes_size_lp), data=traits_data_testes, 
+pgls1 = gls(mean_value_Basophils.Abs~relative_testes_size_lp, data=traits_data_testes, 
             correlation = corPagel(0.5, tree_testes, form=~Species, fixed=FALSE), 
             method="REML", weights=~I(1/n_ind_Basophils.Abs))
 summary(pgls1)
 
-pgls1 = gls(scale(mean_value_Monocytes.Abs)~scale(relative_testes_size_lp), data=traits_data_testes, 
+pgls1 = gls(mean_value_Monocytes.Abs~relative_testes_size_lp, data=traits_data_testes, 
             correlation = corPagel(0.5, tree_testes, form=~Species, fixed=FALSE), 
             method="REML", weights=~I(1/n_ind_Monocytes.Abs)) 
 summary(pgls1) # lambda negative
 
-pgls1 = gls(scale(mean_value_Monocytes.Abs)~scale(relative_testes_size_lp), data=traits_data_testes, 
+pgls1 = gls(mean_value_Monocytes.Abs~relative_testes_size_lp, data=traits_data_testes, 
             correlation = corPagel(0, tree_testes, form=~Species, fixed=TRUE), 
             method="REML", weights=~I(1/n_ind_Monocytes.Abs)) 
 summary(pgls1) # lambda negative
 
 
-pgls1 = gls(scale(mean_value_Eosinophils.Abs)~scale(relative_testes_size_lp), data=traits_data_testes, 
+pgls1 = gls(mean_value_Eosinophils.Abs~relative_testes_size_lp, data=traits_data_testes, 
             correlation = corPagel(0.5, tree_testes, form=~Species, fixed=FALSE), 
             method="REML", weights=~I(1/n_ind_Eosinophils.Abs))
 summary(pgls1)
 
-pgls1 = gls(scale(mean_value_Eosinophils.Abs)~scale(relative_testes_size_lp), data=traits_data_testes, 
+pgls1 = gls(mean_value_Eosinophils.Abs~relative_testes_size_lp, data=traits_data_testes, 
             correlation = corPagel(0.5, tree_testes, form=~Species, fixed=FALSE), 
             method="REML", weights=~I(1/n_ind_Eosinophils.Abs))
 summary(pgls1)
 
-pgls1 = gls(scale(mean_value_Red.Blood.Cells)~scale(relative_testes_size_lp), data=traits_data_testes, 
+pgls1 = gls(mean_value_Red.Blood.Cells~relative_testes_size_lp, data=traits_data_testes, 
             correlation = corPagel(0.5, tree_testes, form=~Species, fixed=FALSE), 
             method="REML", weights=~I(1/n_ind_Red.Blood.Cells))
-summary(pgls1) # p = 0.01
+summary(pgls1) # p = 0.14
 
 plot(scale(mean_value_White.Blood.Cells)~scale(relative_testes_size_lp), data=traits_data_testes)
 plot(scale(mean_value_Lymphocytes.Abs)~scale(relative_testes_size_lp), data=traits_data_testes)
@@ -321,26 +321,22 @@ plot(scale(mean_value_Neutrophil.Seg.Abs)~scale(relative_testes_size_lp), data=t
 #nameck
 #tree_sub2=drop.tip(tree, nameck$tree_not_data)
 
-pgls2 = gls(scale(mean_value_White.Blood.Cells)~factor(R_Pattern_Breeding), data=traits_data, 
+pgls2 = gls(mean_value_White.Blood.Cells~factor(R_Pattern_Breeding), data=traits_data, 
             correlation = corPagel(0.5, tree, form=~Species, fixed=FALSE), method="REML",  
             weights=~I(1/n_ind_White.Blood.Cells))
 summary(pgls2) # *p=0.0002, but lambda is negative
 
-pgls2 = gls(scale(mean_value_White.Blood.Cells)~factor(R_Pattern_Breeding), data=traits_data, 
+pgls2 = gls(mean_value_White.Blood.Cells~factor(R_Pattern_Breeding), data=traits_data, 
             correlation = corPagel(0, tree, form=~Species, fixed=TRUE), method="REML",  
             weights=~I(1/n_ind_White.Blood.Cells))
 summary(pgls2) # *p=0.0004 with fixed lambda = 0
 
 #same pattern controlling for body mass too 
-pgls2 = gls(scale(mean_value_White.Blood.Cells)~factor(R_Pattern_Breeding) + scale(mean_value_Body.Weight) , data=traits_data, 
+pgls2 = gls(mean_value_White.Blood.Cells~factor(R_Pattern_Breeding) + mean_value_Body.Weight , data=traits_data, 
             correlation = corPagel(0.5, tree, form=~Species, fixed=FALSE), method="REML",  
             weights=~I(1/n_ind_White.Blood.Cells))
-summary(pgls2) # *p=0.0002, but lambda is negative
+summary(pgls2) # *p=0.0002
 
-pgls2 = gls(scale(mean_value_White.Blood.Cells)~factor(R_Pattern_Breeding) + scale(mean_value_Body.Weight) , data=traits_data, 
-            correlation = corPagel(0, tree, form=~Species, fixed=TRUE), method="REML",  
-            weights=~I(1/n_ind_White.Blood.Cells))
-summary(pgls2) # *p=0.0004
 
 
 #Figure 3
@@ -352,40 +348,50 @@ p1 = facet_plot(p, panel="White blood cells", data=traits_data, geom=geom_point,
 p1 + theme_tree2(panel.spacing = unit(7, "lines"))
 
 
-pgls2 = gls(scale(mean_value_Lymphocytes.Abs)~factor(R_Pattern_Breeding), data=traits_data, 
+pgls2 = gls(mean_value_Lymphocytes.Abs~factor(R_Pattern_Breeding) , data=traits_data, 
             correlation = corPagel(0.7, tree, form=~Species, fixed=FALSE), method="REML",  
             weights=~I(1/n_ind_Lymphocytes.Abs))
 summary(pgls2) # *p=0.0004
 
 
-pgls2 = gls(scale(mean_value_Lymphocytes.Abs)~factor(R_Pattern_Breeding) + scale(mean_value_Body.Weight) , data=traits_data, 
+pgls2 = gls(mean_value_Lymphocytes.Abs/1000~factor(R_Pattern_Breeding) + mean_value_Body.Weight , data=traits_data, 
             correlation = corPagel(0.5, tree, form=~Species, fixed=FALSE), method="REML",  
             weights=~I(1/n_ind_Lymphocytes.Abs))
-summary(pgls2) # *p=0.0004 - same pattern controlling for body mass
+summary(pgls2) # *p=0.0003 - same pattern controlling for body mass; lambda negative
+
+pgls2 = gls(mean_value_Lymphocytes.Abs/1000~factor(R_Pattern_Breeding) + mean_value_Body.Weight , data=traits_data, 
+            correlation = corPagel(0, tree, form=~Species, fixed=TRUE), method="REML",  
+            weights=~I(1/n_ind_Lymphocytes.Abs))
+summary(pgls2) # *p=0.0004
 
 
-pgls2 = gls(scale(mean_value_Neutrophil.Seg.Abs)~factor(R_Pattern_Breeding), data=traits_data, 
+pgls2 = gls(scale(mean_value_Neutrophil.Seg.Abs)~factor(R_Pattern_Breeding)+ mean_value_Body.Weight, data=traits_data, 
             correlation = corPagel(0.5, tree, form=~Species, fixed=FALSE), method="REML",  
             weights=~I(1/n_ind_Neutrophil.Seg.Abs))
 summary(pgls2)
 
-pgls2 = gls(scale(mean_value_Eosinophils.Abs)~factor(R_Pattern_Breeding), data=traits_data, 
+pgls2 = gls(mean_value_Eosinophils.Abs~factor(R_Pattern_Breeding) + mean_value_Body.Weight, data=traits_data, 
             correlation = corPagel(0.5, tree, form=~Species, fixed=FALSE), method="REML",  
             weights=~I(1/n_ind_Eosinophils.Abs))
 summary(pgls2)
 
-pgls2 = gls(scale(mean_value_Monocytes.Abs)~factor(R_Pattern_Breeding), data=traits_data, 
+pgls2 = gls(mean_value_Monocytes.Abs/1000~factor(R_Pattern_Breeding) + mean_value_Body.Weight, data=traits_data, 
             correlation = corPagel(0.5, tree, form=~Species, fixed=FALSE), method="REML",  
             weights=~I(1/n_ind_Monocytes.Abs))
-summary(pgls2)
+summary(pgls2) #0.009
 
-pgls2 = gls(scale(mean_value_Basophils.Abs)~factor(R_Pattern_Breeding), data=traits_data, 
+pgls2 = gls(mean_value_Basophils.Abs~factor(R_Pattern_Breeding)+ mean_value_Body.Weight, data=traits_data, 
             correlation = corPagel(0.5, tree, form=~Species, fixed=FALSE), method="REML",  
+            weights=~I(1/n_ind_Basophils.Abs))
+summary(pgls2) #lambda neg
+
+pgls2 = gls(mean_value_Basophils.Abs~factor(R_Pattern_Breeding)+ mean_value_Body.Weight, data=traits_data, 
+            correlation = corPagel(0, tree, form=~Species, fixed=TRUE), method="REML",  
             weights=~I(1/n_ind_Basophils.Abs))
 summary(pgls2) #lambda 0
 
 
-pgls2 = gls(scale(mean_value_Red.Blood.Cells)~factor(R_Pattern_Breeding), data=traits_data, 
+pgls2 = gls(mean_value_Red.Blood.Cells~factor(R_Pattern_Breeding), data=traits_data, 
             correlation = corPagel(0.5, tree, form=~Species, fixed=FALSE), method="REML",  
             weights=~I(1/n_ind_Red.Blood.Cells))
 summary(pgls2)
@@ -401,13 +407,20 @@ traits_data_matseas$MatingSeasDur = as.numeric(traits_data_matseas$MatingSeasDur
 hist(traits_data_matseas$MatingSeasDur)
 
 
-
+### Mating season duration
 #
 pgls3 = gls(mean_value_White.Blood.Cells~MatingSeasDur + mean_value_Body.Weight, data=traits_data_matseas, 
             correlation = corPagel(0.5, tree_matseas, form=~Species, fixed=FALSE), method="REML",  
             weights=~I(1/n_ind_White.Blood.Cells))
+summary(pgls3) # *p=0.0045, lambda negative
+plot(mean_value_White.Blood.Cells~MatingSeasDur, data=traits_data_matseas)
+
+pgls3 = gls(mean_value_White.Blood.Cells~MatingSeasDur + mean_value_Body.Weight, data=traits_data_matseas, 
+            correlation = corPagel(0, tree_matseas, form=~Species, fixed=TRUE), method="REML",  
+            weights=~I(1/n_ind_White.Blood.Cells))
 summary(pgls3) # *p=0.0045
 plot(mean_value_White.Blood.Cells~MatingSeasDur, data=traits_data_matseas)
+
 
 traits_data_matseas$preds = predict(pgls3)
 
@@ -435,18 +448,18 @@ ggplot(data=traits_data_matseas, aes(x=MatingSeasDur, y=mean_value_White.Blood.C
 #p2 + theme_tree2(panel.spacing = unit(5.5, "lines"))    
 
 
-pgls3 = gls(mean_value_Neutrophil.Seg.Abs~MatingSeasDur+ mean_value_Body.Weight, data=traits_data_matseas, 
+pgls3 = gls(mean_value_Neutrophil.Seg.Abs/1000~MatingSeasDur+ mean_value_Body.Weight, data=traits_data_matseas, 
             correlation = corPagel(0, tree_matseas, form=~Species, fixed=FALSE), method="REML",  
             weights=~I(1/n_ind_Neutrophil.Seg.Abs))
 summary(pgls3) #p=0.038, lambda negative
 
-pgls3 = gls(mean_value_Neutrophil.Seg.Abs~MatingSeasDur + mean_value_Body.Weight, data=traits_data_matseas, 
+pgls3 = gls(mean_value_Neutrophil.Seg.Abs/1000~MatingSeasDur + mean_value_Body.Weight, data=traits_data_matseas, 
             correlation = corPagel(0, tree_matseas, form=~Species, fixed=TRUE), method="REML",  
             weights=~I(1/n_ind_Neutrophil.Seg.Abs))
 summary(pgls3) #p=0.039
 
 
-pgls3 = gls(mean_value_Lymphocytes.Abs~ MatingSeasDur + mean_value_Body.Weight, data=traits_data_matseas, 
+pgls3 = gls(mean_value_Lymphocytes.Abs/1000 ~ MatingSeasDur + mean_value_Body.Weight, data=traits_data_matseas, 
             correlation = corPagel(0.5, tree_matseas, form=~Species, fixed=FALSE), method="REML",  
             weights=~I(1/n_ind_Lymphocytes.Abs))
 summary(pgls3)
@@ -511,7 +524,7 @@ pgls4 = gls(mean_value_White.Blood.Cells~prop_direct + mean_value_Body.Weight, d
             weights=~I(1/n_ind_White.Blood.Cells)) 
 summary(pgls4) #body mass doesn't change ... 
 
-# Figure 5
+# Figure 5A
 ggplot(data=traits_data_directpara, aes(x=prop_direct, y=mean_value_White.Blood.Cells)) + 
   geom_point(color="#ef6548", size=2) +
   xlab("Directly transmitted parasites (proportion of total)") +
@@ -611,7 +624,7 @@ summary(pgls5)
 
 
 
-# Figure 6
+# Figure 5B
 ggplot(data=traits_data_closepara, aes(x=prop_close, y=mean_value_White.Blood.Cells)) + 
   geom_point(color="#ef6548", size=2) +
   xlab("Close-contact transmitted parasites (proportion of total)") +
