@@ -410,6 +410,8 @@ summary(pgls3) # *p=0.0045
 plot(mean_value_White.Blood.Cells~MatingSeasDur, data=traits_data_matseas)
 
 traits_data_matseas$preds = predict(pgls3)
+
+# Figure 4
 ggplot(data=traits_data_matseas, aes(x=MatingSeasDur, y=mean_value_White.Blood.Cells)) + 
   geom_smooth(method="lm", formula = y~x, aes(y=preds), color="#33a02c") +
   geom_point(color="#33a02c", size=2) +
@@ -509,7 +511,7 @@ pgls4 = gls(mean_value_White.Blood.Cells~prop_direct + mean_value_Body.Weight, d
             weights=~I(1/n_ind_White.Blood.Cells)) 
 summary(pgls4) #body mass doesn't change ... 
 
-# Figure ? 
+# Figure 5
 ggplot(data=traits_data_directpara, aes(x=prop_direct, y=mean_value_White.Blood.Cells)) + 
   geom_point(color="#ef6548", size=2) +
   xlab("Directly transmitted parasites (proportion of total)") +
@@ -609,7 +611,11 @@ summary(pgls5)
 
 
 
-
+# Figure 6
+ggplot(data=traits_data_closepara, aes(x=prop_close, y=mean_value_White.Blood.Cells)) + 
+  geom_point(color="#ef6548", size=2) +
+  xlab("Close-contact transmitted parasites (proportion of total)") +
+  ylab("Mean white blood cell count (10^3/mm^3)") + theme_bw() 
 
 
 
