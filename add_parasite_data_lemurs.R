@@ -144,7 +144,6 @@ colnames(PSR_direct) = c("PSR_direct", "host")
 head(PSR_direct)
 
 
-
 # just look at direct, close transmitted diseases
 byhostpar_close = byhostpar1[byhostpar1$CloseT==1,c("ID","ParasiteCorrectedName","HostCorrectedName_MSW05","Citation")]
 
@@ -179,3 +178,7 @@ psrtot_lemurs2$prop_direct = psrtot_lemurs2$PSR_direct/psrtot_lemurs2$PSR
 
 write.csv(psrtot_lemurs2, "PSR data for lemurs.csv")
 
+
+#sexual transmission... look up the refs
+
+byhostpar_Sex <- gmpd_data_lemursub %>% filter(Sexual == 1 )
