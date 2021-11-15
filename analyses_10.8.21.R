@@ -822,6 +822,7 @@ held_data$Species=gsub("\\*","",held_data$Species)
 traits_data_1 = traits_data %>% left_join(held_data) %>% filter(!is.na(Seasonality.natural.habitat) & !is.na(MatingSeasDur))
 
 plot(MatingSeasDur~jitter(Seasonality.natural.habitat), traits_data_1)
+traits_data_1$Seasonality.natural.habitat
 
 
 season=lm(MatingSeasDur~Seasonality.natural.habitat, data=traits_data_1)
