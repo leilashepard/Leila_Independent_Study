@@ -445,12 +445,14 @@ name_frame$alternate_names=as.character(name_frame$alternate_names)
 
 treeplot = ggtree(tree) %<+% name_frame
 
+traits_data$MatingSeasDur=as.numeric(traits_data$MatingSeasDur)
+
 p = treeplot + coord_cartesian(clip = 'off')
-p1 = facet_plot(p, panel="White Blood Cells", data=traits_data, geom=geom_point,
-                aes(x=mean_value_White.Blood.Cells, color=factor(R_Pattern_Breeding), shape=factor(R_Pattern_Breeding))) +
+p1 = facet_plot(p, panel="White Blood Cells", data=traits_data, geom=geom_point, size=1.5,
+                aes(x=mean_value_White.Blood.Cells, fill=MatingSeasDur, shape=factor(R_Pattern_Breeding))) +
   #theme(legend.position="none") + 
-  scale_color_manual(values=c("#ff7f00", "#33a02c"), name="Seasonal in\n captivity?",labels=c("No","Yes")) +
-  scale_shape_manual(values=c(17,16), name="Seasonal in\n captivity?",labels=c("No","Yes"))
+  scale_fill_gradient(low="lightblue", high="darkblue", na.value="white",name="Mating season duration") +
+  scale_shape_manual(values=c(24,21), name="Seasonal in\n captivity?",labels=c("No","Yes"))
 
 p1 + theme_tree2(panel.spacing = unit(7, "lines"))  + 
   geom_tiplab(aes(label=alternate_names), 
@@ -527,7 +529,7 @@ plot(mean_value_White.Blood.Cells~MatingSeasDur, data=traits_data_matseas)
 pgls3 = gls(mean_value_White.Blood.Cells~MatingSeasDur + mean_value_Body.Weight, data=traits_data_matseas, 
             correlation = corPagel(0, tree_matseas, form=~Species, fixed=TRUE), method="REML",  
             weights=~I(1/n_ind_White.Blood.Cells))
-summary(pgls3) # *p=0.0045
+summary(pgls3) # *0.014
 plot(mean_value_White.Blood.Cells~MatingSeasDur, data=traits_data_matseas)
 
 
