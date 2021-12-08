@@ -20,6 +20,13 @@ traits_data$Species[!traits_data$Species %in% gmpd_data$HostCorrectedName_MSW05]
 gmpd_data_lemursub = gmpd_data[gmpd_data$HostCorrectedName_MSW05 %in% traits_data$Species,]
 summary(gmpd_data_lemursub)
 
+sort(unique(gmpd_data_lemursub$HostReportedName))
+sort(unique(gmpd_data_lemursub$HostCorrectedName_MSW05))
+
+unique(gmpd_data_lemursub$Citation[gmpd_data_lemursub$HostCorrectedName_MSW05=="Eulemur_rufus"])
+unique(gmpd_data_lemursub$HostReportedName[gmpd_data_lemursub$HostCorrectedName_MSW05=="Eulemur_rufus"])
+unique(gmpd_data_lemursub$HostReportedName[gmpd_data_lemursub$HostCorrectedName_MSW05=="Eulemur_fulvus"])
+
 #two studies that sampled for sexually transmitted diseases, prevalence was zero - 
 #Irwin et al. 2010 (Propithecus diadema), Dutton et al. 2008 (Varecia rubra)
 

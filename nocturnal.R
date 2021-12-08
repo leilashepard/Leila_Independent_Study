@@ -93,3 +93,153 @@ pgls2 = gls(mean_value_White.Blood.Cells~factor(R_Pattern_Breeding) + mean_value
             correlation = corPagel(0, tree_md2, form=~Species, fixed=TRUE), method="REML",  
             weights=~I(1/n_ind_White.Blood.Cells))
 summary(pgls2) # 
+
+
+
+
+#Type III error - to address collinearity issue
+#I haven't weighted the data here by sample size... not entirely sure how to do it analogously to above
+#library(car)
+
+#############
+#just madagascar lemurs
+length(traits_data_md$Species)
+plot(MatingSeasDur~mean_value_White.Blood.Cells,data=traits_data_md)
+plot(Nocturnal_CRA~mean_value_White.Blood.Cells,data=traits_data_md)
+plot(mean_value_Body.Weight~mean_value_White.Blood.Cells,data=traits_data_md)
+
+
+#only mating season and nocturnality
+model = lm(mean_value_White.Blood.Cells~MatingSeasDur + factor(Nocturnal_CRA), data=traits_data)
+anova(model) #type 1
+Anova(model, type="III") 
+
+model = lm(mean_value_White.Blood.Cells~factor(Nocturnal_CRA) + MatingSeasDur, data=traits_data)
+anova(model) #type 1
+Anova(model, type="III") 
+
+#control for body mass 
+model = lm(Nocturnal_CRA ~ mean_value_Body.Weight, data=traits_data_md)
+model = lm(mean_value_White.Blood.Cells ~ MatingSeasDur + mean_value_Body.Weight, data=traits_data_md)
+model = lm(mean_value_White.Blood.Cells ~ factor(Nocturnal_CRA), data=traits_data)
+
+
+model = lm(mean_value_White.Blood.Cells~MatingSeasDur + factor(Nocturnal_CRA) + mean_value_Body.Weight, data=traits_data_md)
+anova(model) 
+Anova(model, type="III") 
+
+model = lm(mean_value_White.Blood.Cells~factor(Nocturnal_CRA) + MatingSeasDur + mean_value_Body.Weight, data=traits_data_md)
+#anova(model) 
+Anova(model, type="III") 
+
+#enter body mass first?
+model = lm(mean_value_White.Blood.Cells~ mean_value_Body.Weight + factor(Nocturnal_CRA) + MatingSeasDur , data=traits_data_md)
+#anova(model) 
+Anova(model, type="III") 
+
+model = lm(mean_value_White.Blood.Cells~ mean_value_Body.Weight + MatingSeasDur + factor(Nocturnal_CRA) , data=traits_data_md)
+#anova(model) 
+Anova(model, type="III") 
+
+#just mat seas dur and body mass
+model = lm(mean_value_White.Blood.Cells~ MatingSeasDur + mean_value_Body.Weight, data=traits_data_md)
+#anova(model)        
+Anova(model, type="III")
+
+#just nocturnal and body mass
+model = lm(mean_value_White.Blood.Cells~ factor(Nocturnal_CRA) + mean_value_Body.Weight, data=traits_data_md)
+#anova(model)        
+Anova(model, type="III")
+
+
+########
+#all strepsirrhines - mating season duration
+length(traits_data$Species)
+plot(MatingSeasDur~mean_value_White.Blood.Cells,data=traits_data)
+plot(Nocturnal_CRA~mean_value_White.Blood.Cells,data=traits_data)
+plot(mean_value_Body.Weight~mean_value_White.Blood.Cells,data=traits_data)
+
+
+#only mating season and nocturnality
+model = lm(mean_value_White.Blood.Cells~MatingSeasDur + factor(Nocturnal_CRA), data=traits_data)
+#anova(model) 
+Anova(model, type="III") 
+
+model = lm(mean_value_White.Blood.Cells~factor(Nocturnal_CRA) + MatingSeasDur, data=traits_data)
+#anova(model) 
+Anova(model, type="III") 
+
+#control for body mass 
+model = lm(mean_value_White.Blood.Cells~MatingSeasDur + factor(Nocturnal_CRA) + mean_value_Body.Weight, data=traits_data)
+#anova(model) 
+Anova(model, type="III") 
+
+model = lm(mean_value_White.Blood.Cells~factor(Nocturnal_CRA) + MatingSeasDur + mean_value_Body.Weight, data=traits_data)
+#anova(model) 
+Anova(model, type="III") 
+
+#enter body mass first?
+model = lm(mean_value_White.Blood.Cells~ mean_value_Body.Weight + factor(Nocturnal_CRA) + MatingSeasDur , data=traits_data)
+#anova(model) 
+Anova(model, type="III") 
+
+model = lm(mean_value_White.Blood.Cells~ mean_value_Body.Weight + MatingSeasDur + factor(Nocturnal_CRA) , data=traits_data)
+#anova(model) 
+Anova(model, type="III") 
+
+#just mat seas dur and body mass
+model = lm(mean_value_White.Blood.Cells~ MatingSeasDur + mean_value_Body.Weight, data=traits_data)
+#anova(model)        
+Anova(model, type="III")
+
+#just nocturnal and body mass
+model = lm(mean_value_White.Blood.Cells~ factor(Nocturnal_CRA) + mean_value_Body.Weight, data=traits_data)
+#anova(model)        
+Anova(model, type="III")
+
+
+#########
+#all strepsirrhines - seasonal breeding in captivity (binary)
+length(traits_data$Species)
+
+
+#only mating season and nocturnality
+model = lm(mean_value_White.Blood.Cells~factor(R_Pattern_Breeding) + factor(Nocturnal_CRA), data=traits_data)
+#anova(model) 
+Anova(model, type="III") 
+
+model = lm(mean_value_White.Blood.Cells~factor(Nocturnal_CRA) + factor(R_Pattern_Breeding), data=traits_data)
+#anova(model) 
+Anova(model, type="III") 
+
+#control for body mass 
+model = lm(mean_value_White.Blood.Cells~factor(R_Pattern_Breeding) + factor(Nocturnal_CRA) + mean_value_Body.Weight, data=traits_data)
+#anova(model) 
+Anova(model, type="III") 
+
+model = lm(mean_value_White.Blood.Cells~factor(Nocturnal_CRA) + factor(R_Pattern_Breeding) + mean_value_Body.Weight, data=traits_data)
+#anova(model) 
+Anova(model, type="III") 
+
+#enter body mass first?
+model = lm(mean_value_White.Blood.Cells~ mean_value_Body.Weight + factor(Nocturnal_CRA) + factor(R_Pattern_Breeding) , data=traits_data)
+#anova(model) 
+Anova(model, type="III") 
+
+model = lm(mean_value_White.Blood.Cells~ mean_value_Body.Weight + factor(R_Pattern_Breeding) + factor(Nocturnal_CRA) , data=traits_data)
+#anova(model) 
+Anova(model, type="III") 
+
+#just mat seas dur and body mass
+model = lm(mean_value_White.Blood.Cells~ factor(R_Pattern_Breeding) + mean_value_Body.Weight, data=traits_data)
+#anova(model)        
+Anova(model, type="III")
+
+#just nocturnal and body mass
+model = lm(mean_value_White.Blood.Cells~ factor(Nocturnal_CRA) + mean_value_Body.Weight, data=traits_data)
+#anova(model)        
+Anova(model, type="III")
+
+
+
+

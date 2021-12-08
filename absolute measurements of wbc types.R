@@ -1,4 +1,5 @@
 library(tidyr)
+library(dplyr)
 setwd("./PAD data")
 
 #downloaded the WBC data from PAD on 5 Aug 2021
@@ -18,6 +19,12 @@ length(unique(leuks$subject)) #1411
 #separate by age
 leuks_longer = leuks %>% pivot_longer(cols=y0:y70, names_to = "age", values_to = "value", values_drop_na = "TRUE")
 
+max_lifespan = leuks_longer %>% group_by(species) %>% summarize(max_lifepsan = max(age_at_death, na.rm=T), n_ind_AgeDeath = length(unique(subject[which(!is.na(age_at_death))])))
+write.csv(max_lifespan, "maximum_age_at_death_PAD.csv")
+View(leuks_longer)
+View(max_lifespan)
+hist(max_lifespan$max_lifepsan)
+
 subyr = leuks_longer %>% group_by(subject) %>% summarize(nyears=length(unique(age)))
 length(subyr$subject)
 View(subyr)
@@ -26,7 +33,7 @@ sum(subyr$nyears)
 #take mean for each sex-age
 leuks_sum_sex_age = leuks_longer %>% group_by(species, sex, age, measurement) %>% summarize(mean_value = mean(value), n_ind=length(unique(subject)))
 leuks_sum_sex_agew = leuks_sum_sex_age %>% pivot_wider(id_cols=c(species, sex, age, measurement), names_from=measurement, values_from = c(mean_value, n_ind))
-write.csv(leuks_sum_sexw, "PAD_leukocytes_strepsirrhines_sepsexage.csv")
+#write.csv(leuks_sum_sexw, "PAD_leukocytes_strepsirrhines_sepsexage.csv")
 
 
 #take mean for each age from male and female
