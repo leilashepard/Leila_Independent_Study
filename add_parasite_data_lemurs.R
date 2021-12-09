@@ -27,6 +27,17 @@ unique(gmpd_data_lemursub$Citation[gmpd_data_lemursub$HostCorrectedName_MSW05=="
 unique(gmpd_data_lemursub$HostReportedName[gmpd_data_lemursub$HostCorrectedName_MSW05=="Eulemur_rufus"])
 unique(gmpd_data_lemursub$HostReportedName[gmpd_data_lemursub$HostCorrectedName_MSW05=="Eulemur_fulvus"])
 
+reported_names = gmpd_data_lemursub %>% group_by(HostCorrectedName_MSW05) %>% summarize(ReportedNames = list(unique(HostReportedName)))
+View(reported_names)
+reported_names = as.data.frame(reported_names)
+reported_names$ReportedNames = paste(reported_names$ReportedNames)
+reported_names$ReportedNames
+#write.csv(as.data.frame(reported_names), "Strep_reported_names_GMPD.csv")
+
+latitude = gmpd_data_lemursub %>% group_by(HostCorrectedName_MSW05) %>% summarize(MeanLat = mean(as.numeric(LatitudeDecimal), na.rm=T))
+latitude
+#write.csv(latitude, "Strep_latitude_GMPD.csv")
+
 #two studies that sampled for sexually transmitted diseases, prevalence was zero - 
 #Irwin et al. 2010 (Propithecus diadema), Dutton et al. 2008 (Varecia rubra)
 
