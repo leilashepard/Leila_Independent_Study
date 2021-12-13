@@ -598,6 +598,31 @@ pgls3 = gls(mean_value_Red.Blood.Cells~ MatingSeasDur + mean_value_Body.Weight, 
 summary(pgls3) 
 
 
+
+############################### new december 2021
+### mating season duration + mating system + body mass
+traits_data_matseas$Males_per_female_CRA 
+pgls3 = gls(mean_value_White.Blood.Cells~MatingSeasDur + Males_per_female_CRA +mean_value_Body.Weight, data=traits_data_matseas, 
+            correlation = corPagel(0.5, tree_matseas, form=~Species, fixed=FALSE), method="REML",  
+            weights=~I(1/n_ind_White.Blood.Cells))
+summary(pgls3) # *p=0.0045, lambda negative
+plot(mean_value_White.Blood.Cells~MatingSeasDur, data=traits_data_matseas)
+
+pgls3 = gls(mean_value_White.Blood.Cells~MatingSeasDur + Males_per_female_CRA +mean_value_Body.Weight, data=traits_data_matseas, 
+            correlation = corPagel(0, tree_matseas, form=~Species, fixed=TRUE), method="REML",  
+            weights=~I(1/n_ind_White.Blood.Cells))
+summary(pgls3) # *0.014
+plot(mean_value_White.Blood.Cells~MatingSeasDur, data=traits_data_matseas)
+
+####################
+
+
+
+
+
+
+
+
 #parasites ~ mating season duration
 plot(prop_close~MatingSeasDur, data=traits_data)
 plot(prop_direct~MatingSeasDur, data=traits_data)
@@ -836,3 +861,9 @@ length(predict(season))
 ggplot(data=traits_data_1, aes(x=Seasonality.natural.habitat, y=MatingSeasDur))+
   theme_bw() + geom_jitter(width=0.1, height=0.1) + xlab("Seasonality classification - Heldstab et al. 2021") +
   ylab("Mating Season Duration (months) - this study") + geom_smooth(aes(y=predictions),method="lm", formula=y~x, col="black")
+
+
+
+
+
+

@@ -22,7 +22,7 @@ leuks_all$Common_Name = tolower(leuks_all$Common_Name)
 chart.Correlation(leuks_all[2:9])
 
 #breeding seasonality data from DLC database
-breed = read.csv("Zehr et al data edit names 8.5.21.csv", header=T)
+breed = read.csv("Zehr et al data edit names 8.5.21.csv", header=T) #12.13.21 - added longevity and nocturnal/diurnal
 str(breed)
 breed$Species = gsub(pattern=" ", replacement="_", breed$Latin_Name)
 breed$Common_Name = tolower(breed$Common_Name)
