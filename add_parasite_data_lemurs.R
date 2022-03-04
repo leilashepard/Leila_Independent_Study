@@ -209,3 +209,30 @@ write.csv(psrtot_lemurs2, "PSR data for lemurs.csv")
 #sexual transmission... look up the refs
 
 byhostpar_Sex <- gmpd_data_lemursub %>% filter(Sexual == 1 )
+
+
+#######################
+# look at parasite type
+
+
+byhostpar2 <- gmpd_data_lemursub %>%
+  group_by(HostCorrectedName_MSW05)%>%   #Group by host
+  filter(TotalPrevalence != 0 )   %>%   ## only take columns that don't have 0 prev, but retain NA
+  mutate(parasitegenus=word(ParasiteCorrectedName, 1))%>% ## make a column for the name of the parasite genus
+  mutate(parasitespecies=word(ParasiteCorrectedName,-1)) %>% #make a column for the parasite name
+  ungroup() %>%
+  group_by(HostCorrectedName_MSW05, parasitegenus)%>%   #Group by host AND parasite genus
+  mutate(nonsp_in_gen = length(parasitegenus[parasitespecies != "sp."])>0) %>% #T/F column for whether there is another record of identified species in the same parasite genus
+  ungroup() %>% 
+  mutate(colsp = parasitespecies=="sp.") %>% #T/F for whether the record is a "sp."
+  arrange(HostCorrectedName_MSW05, parasitegenus, parasitespecies) %>%
+  filter(nonsp_in_gen == FALSE | colsp == FALSE) %>% #throw out sp's for which there is another identified species in the genus (i.e. TRUE in both columns)
+  group_by(HostCorrectedName_MSW05, ParasiteType) %>%
+  summarize(rich_type = length(unique(ParasiteCorrectedName))) %>%
+  pivot_wider(names_from = "ParasiteType", values_from = "rich_type")
+
+byhostpar2[is.na(byhostpar2)]=0
+
+#can use this probably just to look at helminths and eosinophils
+
+write.csv(byhostpar2, "parasite types strepsirrhines.csv")
